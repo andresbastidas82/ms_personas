@@ -22,5 +22,11 @@ public class PersonHelper implements IPersonHelper {
                 .map(personRequestMapper::toResponse);
     }
 
+    @Override
+    public Mono<PersonResponse> findById(Long id) {
+        return personServicePort.findById(id)
+                .map(personRequestMapper::toResponse);
+    }
+
 
 }

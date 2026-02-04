@@ -2,6 +2,7 @@ package com.pragma.ms_personas.domain.usecase;
 
 import com.pragma.ms_personas.domain.api.IPersonServicePort;
 import com.pragma.ms_personas.domain.exception.BadRequestException;
+import com.pragma.ms_personas.domain.exception.NotFoundException;
 import com.pragma.ms_personas.domain.model.Person;
 
 import com.pragma.ms_personas.domain.spi.IPersonPersistencePort;
@@ -28,6 +29,12 @@ public class PersonUseCase implements IPersonServicePort {
     public Mono<Person> save(Person person) {
         return validateRules(person)
                 .then(personPersistencePort.save(person));
+    }
+
+    @Override
+    public Mono<Person> findById(Long id) {
+        return personPersistencePort.findById(id)
+                .switchIfEmpty(Mono.error(new NotFoundException("Person not found")));
     }
 
     private Mono<Void> validateRules(Person person) {

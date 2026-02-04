@@ -23,4 +23,10 @@ public class PersonRepositoryAdapter implements IPersonPersistencePort {
         return personR2dbcRepository.save(personEntityMapper.toEntity(person))
                 .map(personEntityMapper::toModel);
     }
+
+    @Override
+    public Mono<Person> findById(Long id) {
+        return personR2dbcRepository.findById(id)
+                .map(personEntityMapper::toModel);
+    }
 }

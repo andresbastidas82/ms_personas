@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
@@ -14,6 +15,7 @@ public class PersonRouter {
 
     @Bean
     public RouterFunction<ServerResponse> personRoutes(PersonHandler personHandler) {
-        return route(POST("/api/v1/person"), personHandler::createPerson);
+        return route(POST("/api/v1/person"), personHandler::createPerson)
+                .andRoute(GET("/api/v1/person/{id}"), personHandler::findById);
     }
 }
