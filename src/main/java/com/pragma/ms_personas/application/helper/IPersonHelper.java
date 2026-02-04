@@ -7,4 +7,6 @@ import reactor.core.publisher.Mono;
 public interface IPersonHelper {
 
     Mono<PersonResponse> createPerson(PersonRequest personRequest);
+
+    Mono<PersonResponse> findById(Long id);
 }

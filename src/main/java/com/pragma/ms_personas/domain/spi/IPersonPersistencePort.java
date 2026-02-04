@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 public interface IPersonPersistencePort {
 
     Mono<Person> save(Person person);
+
+    Mono<Person> findById(Long id);
 }
